@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Challenges</title>
+<style>
+body {background:#000;color:#fff;font-family:Arial;}
+.card {
+  background:#1a1a1a;
+  margin:10px;
+  padding:20px;
+  border-radius:10px;
+}
+</style>
+</head>
+<body>
+
+<div class="card" onclick="play()">Sleep Party</div>
+<div class="card" onclick="play()">Eid</div>
+<div class="card" onclick="play()">Wedding</div>
+
+<script>
+function play(){
+  let stars = prompt("Stars 1-5");
+  if(!stars) return;
+
+  let pts = stars*10;
+  let current = Number(localStorage.getItem("points")||0);
+  current += pts;
+
+  localStorage.setItem("points",current);
+  alert("Points added");
+}
+</script>
+
+</body>
+</html>
