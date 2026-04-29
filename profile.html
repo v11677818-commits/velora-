@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Profile</title>
+<style>
+body {background:#000;color:#fff;font-family:Arial;}
+.card {
+  background:#1a1a1a;
+  margin:10px;
+  padding:15px;
+  border-radius:10px;
+  display:flex;
+  justify-content:space-between;
+}
+img {
+  width:100px;
+  border-radius:50%;
+}
+</style>
+</head>
+<body>
+
+<center>
+<img id="img" src="https://i.imgur.com/2yaf2wb.png"><br>
+<button onclick="change()">Change Photo</button>
+</center>
+
+<div class="card">
+<div>Name</div>
+<div onclick="edit()">Edit</div>
+</div>
+
+<div class="card">
+<div>Points</div>
+<div id="points">0</div>
+</div>
+
+<div class="card">
+<div>Level</div>
+<div>1</div>
+</div>
+
+<script>
+
+function change(){
+  let url=prompt("Image URL");
+  if(url) document.getElementById("img").src=url;
+}
+
+function edit(){
+  let name=prompt("Name");
+  if(name) alert("Saved");
+}
+
+window.onload=()=>{
+  document.getElementById("points").innerText=
+  localStorage.getItem("points")||0;
+}
+
+</script>
+
+</body>
+</html>
