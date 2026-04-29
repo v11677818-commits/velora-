@@ -2,128 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Velora Chat</title>
-
+<title>Chat</title>
 <style>
-body{
-margin:0;
-font-family:Arial;
-background:#0f0f0f;
-color:white;
+body {margin:0;background:#000;color:#fff;font-family:Arial;}
+.top {padding:15px;font-size:20px;}
+.chat {height:80vh;display:flex;justify-content:center;align-items:center;color:#aaa;}
+.input {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  display:flex;
 }
-
-/* sidebar */
-.sidebar{
-width:220px;
-height:100vh;
-background:#1a1a1a;
-position:fixed;
-left:0;
-top:0;
-padding:20px;
+input {
+  flex:1;
+  padding:15px;
+  border:none;
 }
-
-.sidebar h2{margin-bottom:20px;}
-
-.sidebar button{
-width:100%;
-padding:12px;
-margin-bottom:10px;
-border:none;
-border-radius:8px;
-background:#2a2a2a;
-color:white;
-cursor:pointer;
-}
-
-/* content */
-.content{
-margin-left:240px;
-padding:20px;
-}
-
-/* chat */
-.chat-box{
-height:60vh;
-overflow:auto;
-background:#111;
-padding:10px;
-border-radius:10px;
-}
-
-.msg{
-background:#222;
-margin:5px;
-padding:10px;
-border-radius:8px;
-}
-
-.input{
-margin-top:10px;
-}
-
-input{
-padding:10px;
-width:70%;
-}
-
-.send{
-padding:10px;
-background:#f3b6d2;
-border:none;
-cursor:pointer;
+button {
+  padding:15px;
 }
 </style>
 </head>
-
 <body>
 
-<div class="sidebar">
-<h2>Velora</h2>
+<div class="top">velora</div>
 
-<button onclick="go('chat.html')">Chat</button>
-<button onclick="go('group.html')">Group</button>
-<button onclick="go('private.html')">Private</button>
-<button onclick="go('game.html')">Game</button>
-<button onclick="go('styles.html')">Styles</button>
-<button onclick="go('challenges.html')">Challenges</button>
-<button onclick="go('store.html')">Store</button>
-<button onclick="go('subscription.html')">Subscription</button>
-<button onclick="go('profile.html')">Profile</button>
-</div>
-
-<div class="content">
-
-<h2>Chat</h2>
-
-<div class="chat-box" id="chat"></div>
+<div class="chat">How can I help you?</div>
 
 <div class="input">
 <input id="msg">
-<button class="send" onclick="send()">Send</button>
-</div>
-
+<button onclick="send()">Send</button>
 </div>
 
 <script>
-function go(page){
-window.location.href=page;
-}
-
 function send(){
-let input=document.getElementById("msg");
-let box=document.getElementById("chat");
-
-if(!input.value) return;
-
-let div=document.createElement("div");
-div.className="msg";
-div.innerText=input.value;
-
-box.appendChild(div);
-input.value="";
+  alert("Message sent");
 }
 </script>
 
 </body>
-  </html>
+</html>
