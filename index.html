@@ -2,42 +2,49 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Velora</title>
-
 <style>
-body{
-margin:0;
-font-family:Arial;
-background:#f3b6d2;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+body {
+  margin:0;
+  font-family:Arial;
+  display:flex;
+  height:100vh;
 }
-.box{text-align:center;}
-h1{font-size:40px;}
-
-button{
-width:260px;
-padding:15px;
-margin:10px;
-border:none;
-border-radius:12px;
-font-size:16px;
-cursor:pointer;
+.left {
+  flex:1;
+  background:#f3b6d2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:40px;
 }
-
-.google{background:white;}
-.register{background:black;color:white;}
-.guest{background:#444;color:white;}
+.right {
+  flex:1;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:20px;
+}
+button {
+  width:100%;
+  padding:15px;
+  margin:10px 0;
+  border-radius:20px;
+  border:none;
+  font-size:16px;
+}
+.google {background:#fff;}
+.register {background:#ccc;}
+.guest {background:#111;color:#fff;}
 </style>
 </head>
-
 <body>
 
-<div class="box">
-<h1>Thanks</h1>
+<div class="left">Thanks</div>
 
+<div class="right">
 <button class="google" onclick="go()">Continue with Google</button>
 <button class="register" onclick="go()">Register</button>
 <button class="guest" onclick="go()">Guest</button>
@@ -45,7 +52,7 @@ cursor:pointer;
 
 <script>
 function go(){
-window.location.href="chat.html";
+  window.location.href="chat.html";
 }
 </script>
 
