@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Group</title>
+
+<style>
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial;
+}
+
+/* header */
+.header{
+display:flex;
+align-items:center;
+padding:15px;
+}
+
+.header div{
+cursor:pointer;
+}
+
+/* form */
+.form{
+padding:20px;
+}
+
+input, textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:15px;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:10px;
+border:none;
+border-radius:25px;
+background:#f3b6d2;
+cursor:pointer;
+}
+
+/* preview */
+.preview{
+text-align:center;
+margin-top:10px;
+}
+
+.preview img{
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<div onclick="back()">←</div>
+</div>
+
+<div class="form">
+
+<h2>Create Group</h2>
+
+<input id="name" placeholder="Group name">
+
+<textarea id="desc" placeholder="Description"></textarea>
+
+<input type="file" onchange="previewImage(event)">
+
+<div class="preview">
+<img id="img" src="">
+</div>
+
+<button onclick="create()">Create</button>
+
+</div>
+
+<script>
+
+function back(){
+window.location.href="chat.html";
+}
+
+function previewImage(e){
+let file = e.target.files[0];
+let reader = new FileReader();
+
+reader.onload = function(){
+document.getElementById("img").src = reader.result;
+}
+
+reader.readAsDataURL(file);
+}
+
+function create(){
+let name = document.getElementById("name").value;
+
+if(name === ""){
+alert("Enter group name");
+return;
+}
+
+alert("Group created (demo)");
+window.location.href="group.html";
+}
+
+</script>
+
+</body>
+</html>
