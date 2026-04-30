@@ -2,24 +2,108 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Store</title>
+
 <style>
-body {background:#fff;font-family:Arial;}
-.card {
-  border:1px solid #ddd;
-  margin:10px;
-  padding:10px;
+body{
+margin:0;
+background:#111;
+color:#fff;
+font-family:Arial;
+}
+
+/* header */
+.header{
+display:flex;
+align-items:center;
+padding:15px;
+}
+
+/* grid */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+padding:15px;
+}
+
+/* card */
+.card{
+background:#1a1a1a;
+padding:15px;
+border-radius:15px;
+text-align:center;
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+/* button */
+button{
+margin-top:10px;
+padding:10px;
+border:none;
+border-radius:20px;
+background:#f3b6d2;
+cursor:pointer;
 }
 </style>
 </head>
+
 <body>
 
-<div class="card">
-<img src="https://i.imgur.com/2yaf2wb.png" width="100%">
-<p>Avatar</p>
-<p>30 coins</p>
-<button>Buy</button>
+<div class="header">
+<div onclick="back()" style="cursor:pointer">←</div>
 </div>
+
+<h2 style="text-align:center">Velora Store</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://i.imgur.com/6X12K0G.png">
+<p>Avatar Style</p>
+<p>30 coins</p>
+<button onclick="buy('Avatar Style')">Buy</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/j7y7XbK.png">
+<p>Outfit Pack</p>
+<p>50 coins</p>
+<button onclick="buy('Outfit Pack')">Buy</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/Wp7xQ0F.png">
+<p>Accessories</p>
+<p>20 coins</p>
+<button onclick="buy('Accessories')">Buy</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/YZ6vC3K.png">
+<p>Premium Look</p>
+<p>70 coins</p>
+<button onclick="buy('Premium Look')">Buy</button>
+</div>
+
+</div>
+
+<script>
+
+function back(){
+window.location.href="chat.html";
+}
+
+function buy(item){
+alert(item + " purchased (demo)");
+}
+
+</script>
 
 </body>
 </html>
