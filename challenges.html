@@ -2,35 +2,104 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Challenges</title>
+
 <style>
-body {background:#000;color:#fff;font-family:Arial;}
-.card {
-  background:#1a1a1a;
-  margin:10px;
-  padding:20px;
-  border-radius:10px;
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial;
+}
+
+/* header */
+.header{
+display:flex;
+align-items:center;
+padding:15px;
+}
+
+/* grid */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+padding:15px;
+}
+
+/* card */
+.card{
+background:#1a1a1a;
+padding:20px;
+border-radius:15px;
+text-align:center;
+cursor:pointer;
+}
+
+.card:hover{
+background:#f3b6d2;
+color:#000;
 }
 </style>
 </head>
+
 <body>
 
-<div class="card" onclick="play()">Sleep Party</div>
-<div class="card" onclick="play()">Eid</div>
-<div class="card" onclick="play()">Wedding</div>
+<div class="header">
+<div onclick="back()" style="cursor:pointer">←</div>
+</div>
+
+<h2 style="text-align:center">Challenges</h2>
+
+<div class="grid" id="grid"></div>
 
 <script>
-function play(){
-  let stars = prompt("Stars 1-5");
-  if(!stars) return;
 
-  let pts = stars*10;
-  let current = Number(localStorage.getItem("points")||0);
-  current += pts;
-
-  localStorage.setItem("points",current);
-  alert("Points added");
+function back(){
+window.location.href="chat.html";
 }
+
+/* challenges */
+const challenges = [
+"Sleepover",
+"Eid Al-Fitr",
+"Eid Al-Adha",
+"Wedding",
+"University",
+"Casual Day",
+"Winter",
+"Summer",
+"Beach Trip",
+"Graduation",
+"Dinner Date",
+"Korean Style",
+"Classic Style",
+"Luxury Style",
+"Sport Style",
+"Instagram Style",
+"Celebrity Style",
+"Work Outfit",
+"Simple Style",
+"Bold Style"
+];
+
+/* render */
+let grid = document.getElementById("grid");
+
+challenges.forEach(name=>{
+let div = document.createElement("div");
+div.className = "card";
+div.innerText = name;
+
+div.onclick = ()=>{
+alert("Challenge: " + name);
+window.location.href = "game.html";
+};
+
+grid.appendChild(div);
+});
+
 </script>
 
 </body>
