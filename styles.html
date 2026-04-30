@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Styles</title>
+
+<style>
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial;
+text-align:center;
+}
+
+/* header */
+.header{
+display:flex;
+align-items:center;
+padding:15px;
+}
+
+/* container */
+.box{
+padding:20px;
+}
+
+input{
+margin:10px 0;
+}
+
+img{
+width:120px;
+margin:10px;
+border-radius:10px;
+}
+
+/* button */
+button{
+padding:12px 20px;
+border:none;
+border-radius:20px;
+background:#f3b6d2;
+cursor:pointer;
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div onclick="back()" style="cursor:pointer">←</div>
+</div>
+
+<h2>Outfit Styling</h2>
+
+<div class="box">
+
+<p>Upload two images</p>
+
+<input type="file" onchange="preview(event, 'img1')">
+<img id="img1">
+
+<input type="file" onchange="preview(event, 'img2')">
+<img id="img2">
+
+<br>
+
+<button onclick="suggest()">Suggest Outfit</button>
+
+<p id="result"></p>
+
+</div>
+
+<script>
+
+function back(){
+window.location.href="chat.html";
+}
+
+function preview(e, id){
+let file = e.target.files[0];
+let reader = new FileReader();
+
+reader.onload = function(){
+document.getElementById(id).src = reader.result;
+}
+
+reader.readAsDataURL(file);
+}
+
+function suggest(){
+document.getElementById("result").innerText =
+"Suggested: Elegant black outfit with matching accessories";
+}
+
+</script>
+
+</body>
+</html>
