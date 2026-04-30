@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velora Group</title>
+
+<style>
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial;
+}
+
+/* header */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+}
+
+/* messages */
+.messages{
+padding:20px;
+height:70vh;
+overflow-y:auto;
+}
+
+.msg{
+background:#1a1a1a;
+padding:10px;
+margin:5px 0;
+border-radius:10px;
+}
+
+/* input */
+.input-box{
+position:fixed;
+bottom:0;
+width:100%;
+display:flex;
+padding:10px;
+background:#111;
+}
+
+.input-box input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:20px;
+}
+
+.input-box button{
+margin-left:10px;
+padding:10px 15px;
+border:none;
+border-radius:20px;
+background:#f3b6d2;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div onclick="back()" style="cursor:pointer">←</div>
+<div>Group Chat</div>
+</div>
+
+<div class="messages" id="messages"></div>
+
+<div class="input-box">
+<input id="text" placeholder="Write message...">
+<button onclick="send()">Send</button>
+</div>
+
+<script>
+
+let count = 0;
+let limit = 6; // للمسجل (شكل فقط)
+
+function back(){
+window.location.href="chat.html";
+}
+
+function send(){
+let input=document.getElementById("text");
+let msg=input.value;
+
+if(msg==="") return;
+
+/* limit */
+if(count >= limit){
+alert("Message limit reached (demo)");
+return;
+}
+
+let div=document.createElement("div");
+div.className="msg";
+div.innerText=msg;
+
+document.getElementById("messages").appendChild(div);
+
+input.value="";
+count++;
+}
+</script>
+
+</body>
+</html>
