@@ -2,41 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Chat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velora Chat</title>
+
 <style>
-body {margin:0;background:#000;color:#fff;font-family:Arial;}
-.top {padding:15px;font-size:20px;}
-.chat {height:80vh;display:flex;justify-content:center;align-items:center;color:#aaa;}
-.input {
-  position:fixed;
-  bottom:0;
-  width:100%;
-  display:flex;
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial;
 }
-input {
-  flex:1;
-  padding:15px;
-  border:none;
+
+/* header */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+font-size:18px;
 }
-button {
-  padding:15px;
+
+/* menu button */
+.menu-btn{
+cursor:pointer;
+}
+
+/* sidebar */
+.sidebar{
+position:fixed;
+top:0;
+left:-250px;
+width:250px;
+height:100%;
+background:#111;
+padding:20px;
+transition:0.3s;
+}
+
+.sidebar div{
+padding:12px;
+margin:6px 0;
+background:#1a1a1a;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* chat center */
+.center{
+text-align:center;
+margin-top:200px;
+color:#aaa;
+}
+
+/* messages */
+.messages{
+padding:20px;
+}
+
+/* input */
+.input-box{
+position:fixed;
+bottom:0;
+width:100%;
+display:flex;
+padding:10px;
+background:#111;
+}
+
+.input-box input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:20px;
+}
+
+.input-box button{
+margin-left:10px;
+padding:10px 15px;
+border:none;
+border-radius:20px;
+background:#f3b6d2;
+cursor:pointer;
 }
 </style>
 </head>
+
 <body>
 
-<div class="top">velora</div>
+<!-- HEADER -->
+<div class="header">
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+<div>velora</div>
+</div>
 
-<div class="chat">How can I help you?</div>
+<!-- SIDEBAR -->
+<div class="sidebar" id="menu">
+<div onclick="go('group.html')">Group</div>
+<div onclick="go('chat.html')">Bot</div>
+<div onclick="go('game.html')">Game Velora</div>
+<div onclick="go('styles.html')">Styles</div>
+<div onclick="go('challenges.html')">Challenges</div>
+<div onclick="go('store.html')">Store</div>
+<div onclick="go('subscription.html')">Subscription</div>
+<div onclick="go('profile.html')">Profile</div>
+<div onclick="go('create.html')">Create Group</div>
+</div>
 
-<div class="input">
-<input id="msg">
+<!-- CHAT -->
+<div class="center">How can I help you?</div>
+
+<div class="messages" id="messages"></div>
+
+<!-- INPUT -->
+<div class="input-box">
+<input id="text" placeholder="Type a message...">
 <button onclick="send()">Send</button>
 </div>
 
 <script>
+function toggleMenu(){
+let m=document.getElementById("menu");
+m.style.left = m.style.left=="0px" ? "-250px" : "0px";
+}
+
+function go(page){
+window.location.href = page;
+}
+
 function send(){
-  alert("Message sent");
+let input=document.getElementById("text");
+let msg=input.value;
+
+if(msg==="") return;
+
+let div=document.createElement("div");
+div.innerText=msg;
+document.getElementById("messages").appendChild(div);
+
+input.value="";
 }
 </script>
 
