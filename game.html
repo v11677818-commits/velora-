@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velora Game</title>
+
+<style>
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial;
+text-align:center;
+}
+
+/* header */
+.header{
+display:flex;
+align-items:center;
+padding:15px;
+}
+
+/* stage */
+.stage{
+position:relative;
+width:260px;
+margin:20px auto;
+}
+
+.base{
+width:100%;
+}
+
+.layer{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+cursor:move;
+}
+
+/* panel */
+.panel img{
+width:60px;
+margin:5px;
+cursor:pointer;
+border-radius:10px;
+}
+
+.panel img:hover{
+outline:2px solid #f3b6d2;
+}
+
+/* buttons */
+button{
+margin:5px;
+padding:10px 15px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* timer */
+.timer{
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div onclick="back()" style="cursor:pointer">←</div>
+</div>
+
+<h2>Velora Game</h2>
+
+<div class="timer">Time: <span id="time">07:00</span></div>
+
+<div class="stage" id="stage">
+<img src="https://i.imgur.com/6X12K0G.png" class="base">
+</div>
+
+<h3>Clothes</h3>
+<div class="panel">
+<img src="https://i.imgur.com/j7y7XbK.png" onclick="addItem(this.src)">
+<img src="https://i.imgur.com/2yaf2wb.png" onclick="addItem(this.src)">
+</div>
+
+<h3>Accessories</h3>
+<div class="panel">
+<img src="https://i.imgur.com/Wp7xQ0F.png" onclick="addItem(this.src)">
+<img src="https://i.imgur.com/YZ6vC3K.png" onclick="addItem(this.src)">
+</div>
+
+<div>
+<button onclick="clearAll()">Clear</button>
+<button onclick="rate(5)">Finish</button>
+</div>
+
+<p id="result"></p>
+
+<script>
+
+function back(){
+window.location.href="chat.html";
+}
+
+/* add item */
+function addItem(src){
+let img = document.createElement("img");
+img.src = src;
+img.className = "layer";
+
+img.onmousedown = drag;
+img.ontouchstart = drag;
+
+document.getElementById("stage").appendChild(img);
+}
+
+/* drag */
+function drag(e){
+let el = e.target;
+
+function move(ev){
+el.style.left = (ev.clientX - 100) + "px";
+el.style.top = (ev.clientY - 150) + "px";
+}
+
+document.onmousemove = move;
+document.onmouseup = ()=> document.onmousemove = null;
+}
+
+/* clear */
+function clearAll(){
+document.querySelectorAll(".layer").forEach(el=>el.remove());
+}
+
+/* timer */
+let t = 420;
+setInterval(()=>{
+t--;
+let m = Math.floor(t/60);
+let s = t%60;
+document.getElementById("time").innerText =
+(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+},1000);
+
+/* rate */
+function rate(stars){
+let points = stars * 10;
+document.getElementById("result").innerText =
+"You got " + points + " points";
+}
+
+</script>
+
+</body>
+</html>
