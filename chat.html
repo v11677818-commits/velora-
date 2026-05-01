@@ -11,136 +11,132 @@ margin:0;
 background:#000;
 color:#fff;
 font-family:Arial;
+height:100vh;
+display:flex;
+flex-direction:column;
 }
 
 /* header */
-.header{
+.top{
 display:flex;
-justify-content:space-between;
+justify-content:flex-end;
 align-items:center;
 padding:15px;
-font-size:18px;
+gap:10px;
 }
 
-/* menu button */
-.menu-btn{
-cursor:pointer;
-}
-
-/* sidebar */
-.sidebar{
-position:fixed;
-top:0;
-left:-250px;
-width:250px;
-height:100%;
-background:#111;
-padding:20px;
-transition:0.3s;
-}
-
-.sidebar div{
-padding:12px;
-margin:6px 0;
+.sub-btn{
 background:#1a1a1a;
-border-radius:10px;
+border:none;
+color:#fff;
+padding:8px 18px;
+border-radius:20px;
 cursor:pointer;
 }
 
-/* chat center */
-.center{
-text-align:center;
-margin-top:200px;
-color:#aaa;
-}
-
-/* messages */
-.messages{
-padding:20px;
-}
-
-/* input */
-.input-box{
-position:fixed;
-bottom:0;
-width:100%;
+.menu{
+width:40px;
+height:40px;
+background:#1a1a1a;
+border-radius:50%;
 display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+/* center text */
+.center{
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+color:#ccc;
+}
+
+/* bottom bar */
+.bottom{
 padding:10px;
-background:#111;
+background:#000;
+}
+
+.input-box{
+display:flex;
+align-items:center;
+background:#1a1a1a;
+border-radius:25px;
+padding:8px 10px;
 }
 
 .input-box input{
 flex:1;
-padding:12px;
+background:transparent;
 border:none;
-border-radius:20px;
+outline:none;
+color:#fff;
+padding:10px;
 }
 
-.input-box button{
-margin-left:10px;
-padding:10px 15px;
-border:none;
-border-radius:20px;
-background:#f3b6d2;
+.icon{
+width:35px;
+height:35px;
+background:#2a2a2a;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-right:5px;
 cursor:pointer;
+}
+
+.plus{
+margin-left:5px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
-<div>velora</div>
+<!-- top -->
+<div class="top">
+<button class="sub-btn" onclick="goSub()">Subscribe</button>
+<div class="menu" onclick="openMenu()">≡</div>
 </div>
 
-<!-- SIDEBAR -->
-<div class="sidebar" id="menu">
-<div onclick="go('group.html')">Group</div>
-<div onclick="go('chat.html')">Bot</div>
-<div onclick="go('game.html')">Game Velora</div>
-<div onclick="go('styles.html')">Styles</div>
-<div onclick="go('challenges.html')">Challenges</div>
-<div onclick="go('store.html')">Store</div>
-<div onclick="go('subscription.html')">Subscription</div>
-<div onclick="go('profile.html')">Profile</div>
-<div onclick="go('create.html')">Create Group</div>
+<!-- center -->
+<div class="center">
+How can I help you?
 </div>
 
-<!-- CHAT -->
-<div class="center">How can I help you?</div>
-
-<div class="messages" id="messages"></div>
-
-<!-- INPUT -->
+<!-- bottom -->
+<div class="bottom">
 <div class="input-box">
-<input id="text" placeholder="Type a message...">
-<button onclick="send()">Send</button>
+
+<div class="icon">🎤</div>
+
+<input type="text" placeholder="Ask Velora">
+
+<div class="icon plus" onclick="send()">+</div>
+
+</div>
 </div>
 
 <script>
-function toggleMenu(){
-let m=document.getElementById("menu");
-m.style.left = m.style.left=="0px" ? "-250px" : "0px";
+
+function goSub(){
+window.location.href="subscription.html";
 }
 
-function go(page){
-window.location.href = page;
+function openMenu(){
+alert("menu");
 }
 
+/* fake send */
 function send(){
-let input=document.getElementById("text");
-let msg=input.value;
-
-if(msg==="") return;
-
-let div=document.createElement("div");
-div.innerText=msg;
-document.getElementById("messages").appendChild(div);
-
-input.value="";
+alert("message sent");
 }
+
 </script>
 
 </body>
