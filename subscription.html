@@ -2,33 +2,111 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Subscription</title>
+
 <style>
-body {background:#000;color:#fff;font-family:Arial;}
-.box {
-  padding:20px;
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial;
+text-align:center;
 }
-button {
-  width:100%;
-  padding:15px;
-  border-radius:20px;
+
+/* header */
+.header{
+display:flex;
+align-items:center;
+padding:15px;
+}
+
+/* table */
+table{
+width:90%;
+margin:20px auto;
+border-collapse:collapse;
+}
+
+td, th{
+border:1px solid #333;
+padding:12px;
+}
+
+/* button */
+button{
+padding:15px;
+width:80%;
+border:none;
+border-radius:30px;
+background:#f3b6d2;
+cursor:pointer;
+font-size:16px;
 }
 </style>
 </head>
+
 <body>
 
-<div class="box">
-<h1>velora</h1>
-
-<p>Free vs Premium</p>
-
-<button onclick="sub()">Subscribe 20$</button>
+<div class="header">
+<div onclick="back()" style="cursor:pointer">←</div>
 </div>
 
+<h1>Velora</h1>
+
+<table>
+<tr>
+<th>Feature</th>
+<th>Free</th>
+<th>Premium</th>
+</tr>
+
+<tr>
+<td>Bot</td>
+<td>Limited</td>
+<td>Unlimited</td>
+</tr>
+
+<tr>
+<td>Messages</td>
+<td>Limited</td>
+<td>Unlimited</td>
+</tr>
+
+<tr>
+<td>Game</td>
+<td>Limited</td>
+<td>Unlimited</td>
+</tr>
+
+<tr>
+<td>Styles</td>
+<td>Limited</td>
+<td>Unlimited</td>
+</tr>
+
+<tr>
+<td>Challenges</td>
+<td>2 Daily</td>
+<td>Unlimited</td>
+</tr>
+</table>
+
+<button onclick="subscribe()">Subscribe - 20$</button>
+
+<p id="status"></p>
+
 <script>
-function sub(){
-  alert("Payment later with Moyasar");
+
+function back(){
+window.location.href="chat.html";
 }
+
+function subscribe(){
+document.getElementById("status").innerText =
+"Subscription activated (demo)";
+}
+
 </script>
 
 </body>
