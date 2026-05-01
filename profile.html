@@ -2,60 +2,137 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile</title>
+
 <style>
-body {background:#000;color:#fff;font-family:Arial;}
-.card {
-  background:#1a1a1a;
-  margin:10px;
-  padding:15px;
-  border-radius:10px;
-  display:flex;
-  justify-content:space-between;
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial;
+text-align:center;
 }
-img {
-  width:100px;
-  border-radius:50%;
+
+/* header */
+.header{
+display:flex;
+align-items:center;
+padding:15px;
+}
+
+/* profile */
+.profile{
+margin-top:30px;
+}
+
+.profile img{
+width:120px;
+height:120px;
+border-radius:50%;
+object-fit:cover;
+}
+
+input{
+margin-top:10px;
+padding:10px;
+border:none;
+border-radius:20px;
+}
+
+/* stats */
+.stats{
+margin-top:20px;
+}
+
+.box{
+background:#1a1a1a;
+margin:10px;
+padding:15px;
+border-radius:15px;
+}
+
+/* button */
+button{
+margin-top:15px;
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:#f3b6d2;
+cursor:pointer;
 }
 </style>
 </head>
+
 <body>
 
-<center>
-<img id="img" src="https://i.imgur.com/2yaf2wb.png"><br>
-<button onclick="change()">Change Photo</button>
-</center>
-
-<div class="card">
-<div>Name</div>
-<div onclick="edit()">Edit</div>
+<div class="header">
+<div onclick="back()" style="cursor:pointer">←</div>
 </div>
 
-<div class="card">
-<div>Points</div>
-<div id="points">0</div>
+<h2>Profile</h2>
+
+<div class="profile">
+
+<img id="avatar" src="https://i.imgur.com/6X12K0G.png">
+
+<br>
+
+<input type="file" onchange="changeImage(event)">
+
+<br>
+
+<input id="name" placeholder="Your name">
+
 </div>
 
-<div class="card">
-<div>Level</div>
-<div>1</div>
+<div class="stats">
+
+<div class="box">
+Points: <span id="points">0</span>
 </div>
+
+<div class="box">
+Level: <span id="level">1</span>
+</div>
+
+</div>
+
+<button onclick="save()">Save</button>
+
+<p id="status"></p>
 
 <script>
 
-function change(){
-  let url=prompt("Image URL");
-  if(url) document.getElementById("img").src=url;
+function back(){
+window.location.href="chat.html";
 }
 
-function edit(){
-  let name=prompt("Name");
-  if(name) alert("Saved");
+function changeImage(e){
+let file = e.target.files[0];
+let reader = new FileReader();
+
+reader.onload = function(){
+document.getElementById("avatar").src = reader.result;
 }
 
-window.onload=()=>{
-  document.getElementById("points").innerText=
-  localStorage.getItem("points")||0;
+reader.readAsDataURL(file);
+}
+
+/* fake save */
+function save(){
+document.getElementById("status").innerText = "Saved";
+}
+
+/* level system */
+let points = 0;
+
+function addPoints(p){
+points += p;
+document.getElementById("points").innerText = points;
+
+let lvl = Math.floor(points / 100) + 1;
+document.getElementById("level").innerText = lvl;
 }
 
 </script>
