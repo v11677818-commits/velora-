@@ -2,111 +2,153 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Velora Group</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 <style>
+
 body{
 margin:0;
 background:#000;
-color:#fff;
 font-family:Arial;
+color:white;
 }
 
-/* header */
-.header{
+.chat{
 display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px;
+flex-direction:column;
+height:100vh;
 }
 
-/* messages */
 .messages{
-padding:20px;
-height:70vh;
+flex:1;
 overflow-y:auto;
+padding:20px;
 }
 
 .msg{
-background:#1a1a1a;
-padding:10px;
-margin:5px 0;
-border-radius:10px;
+display:flex;
+gap:10px;
+margin-bottom:15px;
+align-items:flex-start;
 }
 
-/* input */
-.input-box{
-position:fixed;
-bottom:0;
-width:100%;
+.msg img{
+width:40px;
+height:40px;
+border-radius:50%;
+}
+
+.msg b{
+font-size:14px;
+cursor:pointer;
+}
+
+.msg p{
+margin:2px 0;
+font-size:14px;
+color:#ccc;
+}
+
+.input{
 display:flex;
 padding:10px;
 background:#111;
 }
 
-.input-box input{
+.input input{
 flex:1;
 padding:12px;
 border:none;
-border-radius:20px;
+outline:none;
+border-radius:10px;
+background:#222;
+color:white;
 }
 
-.input-box button{
+.input button{
 margin-left:10px;
-padding:10px 15px;
+padding:12px 20px;
 border:none;
-border-radius:20px;
-background:#f3b6d2;
+border-radius:10px;
+background:white;
+color:black;
 cursor:pointer;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="header">
-<div onclick="back()" style="cursor:pointer">←</div>
-<div>Group Chat</div>
-</div>
+<div class="chat">
 
 <div class="messages" id="messages"></div>
 
-<div class="input-box">
-<input id="text" placeholder="Write message...">
+<div class="input">
+<input id="text" placeholder="Type message...">
 <button onclick="send()">Send</button>
+</div>
+
 </div>
 
 <script>
 
-let count = 0;
-let limit = 6; // للمسجل (شكل فقط)
+const supabase = window.supabase.createClient(
+"https://lwnheytfhwgryxikjjwu.supabase.co",
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3bmhleXRmaHdncnl4aWtqand1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MDcxNjEsImV4cCI6MjA5MzI4MzE2MX0.qTJGYWouA9w9RZU8WFkE7ZbK-J3O1Snvwi9CbEMNxtQ"
+)
 
-function back(){
-window.location.href="chat.html";
+const name = localStorage.getItem("name") || "User"
+const avatar = localStorage.getItem("avatar") || "https://i.imgur.com/6VBx3io.png"
+
+async function send(){
+let text = document.getElementById("text").value
+
+if(!text) return
+
+await supabase.from("messages").insert([
+{
+name:name,
+avatar:avatar,
+message:text
+}
+])
+
+document.getElementById("text").value = ""
 }
 
-function send(){
-let input=document.getElementById("text");
-let msg=input.value;
+async function load(){
+let { data } = await supabase
+.from("messages")
+.select("*")
+.order("created_at",{ascending:true})
 
-if(msg==="") return;
+let box = document.getElementById("messages")
+box.innerHTML=""
 
-/* limit */
-if(count >= limit){
-alert("Message limit reached (demo)");
-return;
+data.forEach(m=>{
+box.innerHTML += `
+<div class="msg">
+<img src="${m.avatar}">
+<div>
+<b onclick="openProfile('${m.name}')">${m.name}</b>
+<p>${m.message}</p>
+</div>
+</div>
+`
+})
+
+box.scrollTop = box.scrollHeight
 }
 
-let div=document.createElement("div");
-div.className="msg";
-div.innerText=msg;
+setInterval(load,1000)
 
-document.getElementById("messages").appendChild(div);
-
-input.value="";
-count++;
+function openProfile(name){
+alert("Open profile: " + name)
 }
+
 </script>
 
 </body>
