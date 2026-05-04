@@ -7,7 +7,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <style>
-
 body{
 margin:0;
 background:#000;
@@ -31,7 +30,6 @@ padding:20px;
 display:flex;
 gap:10px;
 margin-bottom:15px;
-align-items:flex-start;
 }
 
 .msg img{
@@ -40,14 +38,8 @@ height:40px;
 border-radius:50%;
 }
 
-.msg b{
-font-size:14px;
-cursor:pointer;
-}
-
 .msg p{
-margin:2px 0;
-font-size:14px;
+margin:0;
 color:#ccc;
 }
 
@@ -61,7 +53,6 @@ background:#111;
 flex:1;
 padding:12px;
 border:none;
-outline:none;
 border-radius:10px;
 background:#222;
 color:white;
@@ -76,7 +67,6 @@ background:white;
 color:black;
 cursor:pointer;
 }
-
 </style>
 </head>
 
@@ -84,70 +74,90 @@ cursor:pointer;
 
 <div class="chat">
 
-<div class="messages" id="messages"></div>
+<div id="messages" class="messages"></div>
 
 <div class="input">
 <input id="text" placeholder="Type message...">
-<button onclick="send()">Send</button>
+<button id="sendBtn">Send</button>
 </div>
 
 </div>
 
 <script>
 
-const supabase = window.supabase.createClient(
+const supabaseClient = supabase.createClient(
 "https://lwnheytfhwgryxikjjwu.supabase.co",
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3bmhleXRmaHdncnl4aWtqand1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MDcxNjEsImV4cCI6MjA5MzI4MzE2MX0.qTJGYWouA9w9RZU8WFkE7ZbK-J3O1Snvwi9CbEMNxtQ"
-)
+);
 
-const name = localStorage.getItem("name") || "User"
-const avatar = localStorage.getItem("avatar") || "https://i.imgur.com/6VBx3io.png"
+const input = document.getElementById("text");
+const btn = document.getElementById("sendBtn");
+const box = document.getElementById("messages");
 
+const name = localStorage.getItem("name") || "User";
+const avatar = localStorage.getItem("avatar") || "https://i.imgur.com/6VBx3io.png";
+
+// إرسال
 async function send(){
-let text = document.getElementById("text").value
+const msg = input.value.trim();
+if(!msg) return;
 
-if(!text) return
-
-await supabase.from("messages").insert([
+const { error } = await supabaseClient.from("messages").insert([
 {
 name:name,
 avatar:avatar,
-message:text
+message:msg
 }
-])
+]);
 
-document.getElementById("text").value = ""
+if(error){
+alert(error.message);
+return;
 }
 
+input.value="";
+}
+
+// زر
+btn.onclick = send;
+
+// Enter
+input.addEventListener("keydown", function(e){
+if(e.key === "Enter") send();
+});
+
+// تحميل الرسائل
 async function load(){
-let { data } = await supabase
+
+const { data, error } = await supabaseClient
 .from("messages")
 .select("*")
-.order("created_at",{ascending:true})
+.order("created_at",{ascending:true});
 
-let box = document.getElementById("messages")
-box.innerHTML=""
+if(error){
+console.log(error);
+return;
+}
 
-data.forEach(m=>{
+box.innerHTML = "";
+
+data.forEach(function(m){
 box.innerHTML += `
 <div class="msg">
 <img src="${m.avatar}">
 <div>
-<b onclick="openProfile('${m.name}')">${m.name}</b>
+<b>${m.name}</b>
 <p>${m.message}</p>
 </div>
 </div>
-`
-})
+`;
+});
 
-box.scrollTop = box.scrollHeight
+box.scrollTop = box.scrollHeight;
 }
 
-setInterval(load,1000)
-
-function openProfile(name){
-alert("Open profile: " + name)
-}
+setInterval(load,1000);
+load();
 
 </script>
 
