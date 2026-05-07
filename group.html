@@ -2,162 +2,332 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Velora Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velora Chat</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#000;
+height:100vh;
+overflow:hidden;
+color:white;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:260px;
+height:100%;
+background:#0f0f0f;
+padding:20px;
+border-right:1px solid #1f1f1f;
+overflow:auto;
+}
+
+.logo{
+font-size:28px;
+font-weight:600;
+margin-bottom:30px;
+}
+
+.menu a{
+display:block;
+padding:14px;
+margin-bottom:10px;
+background:#151515;
+border-radius:16px;
+text-decoration:none;
+color:white;
+transition:.2s;
+}
+
+.menu a:hover{
+background:#242424;
+}
+
+/* MAIN */
+
+.main{
+margin-left:260px;
+height:100vh;
+display:flex;
+flex-direction:column;
+}
+
+/* TOP */
+
+.topbar{
+height:70px;
+display:flex;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #1f1f1f;
+background:#0b0b0b;
+font-size:20px;
+font-weight:600;
+}
+
+/* CHAT */
+
+.chat-box{
+flex:1;
+overflow:auto;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.message{
+display:flex;
+gap:12px;
+align-items:flex-start;
+background:#111;
+padding:14px;
+border-radius:18px;
+animation:fade .2s ease;
+}
+
+.avatar{
+width:45px;
+height:45px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.username{
+font-size:14px;
+font-weight:600;
+margin-bottom:4px;
+}
+
+.text{
+font-size:15px;
+line-height:1.5;
+word-wrap:break-word;
+}
+
+/* SEND */
+
+.send-box{
+padding:16px;
+border-top:1px solid #1f1f1f;
+display:flex;
+gap:10px;
+background:#0b0b0b;
+}
+
+.send-box input{
+flex:1;
+height:55px;
+background:#151515;
+border:none;
+outline:none;
+border-radius:18px;
+padding:0 18px;
+font-size:15px;
+color:white;
+}
+
+.send-box button{
+width:120px;
+border:none;
+border-radius:18px;
+background:white;
+color:black;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:.2s;
+}
+
+.send-box button:hover{
+transform:scale(1.03);
+}
+
+/* SCROLL */
+
+::-webkit-scrollbar{
+width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#222;
+border-radius:20px;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">Velora</div>
+
+<div class="menu">
+<a href="#"> Bot</a>
+<a href="#"> Group</a>
+<a href="#"> Game</a>
+<a href="#"> Styles</a>
+<a href="#"> Challenges</a>
+<a href="#"> Store</a>
+<a href="#"> Subscription</a>
+<a href="#"> Profile</a>
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="topbar">
+Velora Group
+</div>
+
+<!-- MESSAGES -->
+
+<div class="chat-box" id="messages"></div>
+
+<!-- SEND -->
+
+<div class="send-box">
+
+<input
+type="text"
+id="messageInput"
+placeholder="Message..."
+>
+
+<button onclick="sendMessage()">
+Send
+</button>
+
+</div>
+
+</div>
+
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-<style>
-body{
-margin:0;
-background:#000;
-font-family:Arial;
-color:white;
-}
-
-.chat{
-display:flex;
-flex-direction:column;
-height:100vh;
-}
-
-.messages{
-flex:1;
-overflow-y:auto;
-padding:20px;
-}
-
-.msg{
-display:flex;
-gap:10px;
-margin-bottom:15px;
-}
-
-.msg img{
-width:40px;
-height:40px;
-border-radius:50%;
-}
-
-.msg p{
-margin:0;
-color:#ccc;
-}
-
-.input{
-display:flex;
-padding:10px;
-background:#111;
-}
-
-.input input{
-flex:1;
-padding:12px;
-border:none;
-border-radius:10px;
-background:#222;
-color:white;
-}
-
-.input button{
-margin-left:10px;
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:white;
-color:black;
-cursor:pointer;
-}
-</style>
-</head>
-
-<body>
-
-<div class="chat">
-
-<div id="messages" class="messages"></div>
-
-<div class="input">
-<input id="text" placeholder="Type message...">
-<button id="sendBtn">Send</button>
-</div>
-
-</div>
-
 <script>
 
+const SUPABASE_URL =
+"https://lwnheytfhwgryxikjjwu.supabase.co";
+
+const SUPABASE_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3bmhleXRmaHdncnl4aWtqand1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MDcxNjEsImV4cCI6MjA5MzI4MzE2MX0.qTJGYWouA9w9RZU8WFkE7ZbK-J3O1Snvwi9CbEMNxtQ";
+
 const supabaseClient = supabase.createClient(
-"https://lwnheytfhwgryxikjjwu.supabase.co",
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3bmhleXRmaHdncnl4aWtqand1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MDcxNjEsImV4cCI6MjA5MzI4MzE2MX0.qTJGYWouA9w9RZU8WFkE7ZbK-J3O1Snvwi9CbEMNxtQ"
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
-const input = document.getElementById("text");
-const btn = document.getElementById("sendBtn");
-const box = document.getElementById("messages");
+/* SEND MESSAGE */
 
-const name = localStorage.getItem("name") || "User";
-const avatar = localStorage.getItem("avatar") || "https://i.imgur.com/6VBx3io.png";
+async function sendMessage(){
 
-// إرسال
-async function send(){
-const msg = input.value.trim();
-if(!msg) return;
+const input =
+document.getElementById("messageInput");
 
-const { error } = await supabaseClient.from("messages").insert([
+const text = input.value;
+
+if(text.trim() === "") return;
+
+await supabaseClient
+.from("messages")
+.insert([
 {
-name:name,
-avatar:avatar,
-message:msg
+name:"Velora User",
+avatar:"https://i.imgur.com/6VBx3io.png",
+message:text
 }
 ]);
 
-if(error){
-alert(error.message);
-return;
+input.value = "";
+
+loadMessages();
+
 }
 
-input.value="";
-}
+/* LOAD */
 
-// زر
-btn.onclick = send;
+async function loadMessages(){
 
-// Enter
-input.addEventListener("keydown", function(e){
-if(e.key === "Enter") send();
-});
-
-// تحميل الرسائل
-async function load(){
-
-const { data, error } = await supabaseClient
+const { data } = await supabaseClient
 .from("messages")
 .select("*")
-.order("created_at",{ascending:true});
+.order("created_at",{ ascending:true });
 
-if(error){
-console.log(error);
-return;
-}
+const box =
+document.getElementById("messages");
 
 box.innerHTML = "";
 
-data.forEach(function(m){
+data.forEach(msg=>{
+
 box.innerHTML += `
-<div class="msg">
-<img src="${m.avatar}">
+
+<div class="message">
+
+<img
+src="${msg.avatar}"
+class="avatar"
+>
+
 <div>
-<b>${m.name}</b>
-<p>${m.message}</p>
+
+<div class="username">
+${msg.name}
 </div>
+
+<div class="text">
+${msg.message}
 </div>
+
+</div>
+
+</div>
+
 `;
+
 });
 
 box.scrollTop = box.scrollHeight;
+
 }
 
-setInterval(load,1000);
-load();
+loadMessages();
+
+setInterval(loadMessages,1000);
 
 </script>
 
