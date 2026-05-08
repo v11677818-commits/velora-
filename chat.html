@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Velora</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<style>
+
 *{
 margin:0;
 padding:0;
@@ -12,14 +26,13 @@ height:100vh;
 overflow:hidden;
 }
 
-/* الشريط العلوي */
+/* فوق */
 
 .top-bar{
 position:fixed;
 top:20px;
 right:20px;
 display:flex;
-align-items:center;
 gap:12px;
 z-index:1000;
 }
@@ -41,7 +54,7 @@ border-radius:50%;
 border:1px solid #2a2a2a;
 background:#151515;
 color:#fff;
-font-size:26px;
+font-size:28px;
 cursor:pointer;
 }
 
@@ -87,11 +100,10 @@ gap:28px;
 .menu-links a{
 color:#fff;
 text-decoration:none;
-font-size:18px;
-font-weight:500;
+font-size:20px;
 }
 
-/* الخلفية وقت فتح القائمة */
+/* الخلفية */
 
 .overlay{
 position:fixed;
@@ -112,7 +124,7 @@ opacity:1;
 pointer-events:auto;
 }
 
-/* النص بالنص */
+/* النص */
 
 .center-text{
 position:absolute;
@@ -123,7 +135,39 @@ font-size:42px;
 font-weight:600;
 }
 
-/* البار السفلي */
+/* الرسائل */
+
+.messages{
+position:absolute;
+top:100px;
+left:0;
+width:100%;
+height:calc(100vh - 190px);
+overflow-y:auto;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.message{
+background:#111;
+padding:14px;
+border-radius:18px;
+}
+
+.msg-name{
+font-size:14px;
+color:#999;
+margin-bottom:5px;
+}
+
+.msg-text{
+font-size:16px;
+line-height:1.5;
+}
+
+/* تحت */
 
 .bottom-bar{
 position:fixed;
@@ -131,14 +175,13 @@ bottom:18px;
 left:50%;
 transform:translateX(-50%);
 width:92%;
-max-width:900px;
 height:68px;
 background:#151515;
 border:1px solid #2a2a2a;
 border-radius:40px;
 display:flex;
 align-items:center;
-padding:0 18px;
+padding:0 14px;
 z-index:1000;
 }
 
@@ -150,62 +193,258 @@ border:none;
 outline:none;
 color:#fff;
 font-size:17px;
-padding:0 14px;
+padding:0 12px;
 }
 
-.plus-btn{
+.send-btn{
 width:52px;
 height:52px;
 border-radius:50%;
-background:#222;
 border:none;
+background:#222;
 color:#fff;
-font-size:30px;
+font-size:24px;
 cursor:pointer;
 }
 
-/* الرسائل */
+</style>
 
-.messages{
-position:absolute;
-top:100px;
-left:0;
-width:100%;
-height:calc(100vh - 200px);
-overflow-y:auto;
-padding:25px;
-display:flex;
-flex-direction:column;
-gap:20px;
+</head>
+
+<body>
+
+<!-- فوق -->
+
+<div class="top-bar">
+
+<button class="subscribe-btn">
+اشتراك
+</button>
+
+<button class="menu-btn" onclick="openMenu()">
+☰
+</button>
+
+</div>
+
+<!-- الخلفية -->
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- القائمة -->
+
+<div class="sidebar" id="sidebar">
+
+<input
+class="search-box"
+placeholder="بحث">
+
+<div class="menu-links">
+
+<a href="#">قروب</a>
+
+<a href="#">بوت</a>
+
+<a href="#">velora لعبة</a>
+
+<a href="#">تنسيقات ملابس</a>
+
+<a href="#">تحديات اسبوعيه</a>
+
+<a href="#">اشتراك</a>
+
+<a href="#">سوق velora</a>
+
+<a href="#">الملف الشخصي</a>
+
+</div>
+
+</div>
+
+<!-- النص -->
+
+<div class="center-text">
+كيف يمكنني المساعدة؟
+</div>
+
+<!-- الرسائل -->
+
+<div class="messages" id="messages"></div>
+
+<!-- تحت -->
+
+<div class="bottom-bar">
+
+<input
+type="text"
+id="messageInput"
+class="message-input"
+placeholder="اكتب رسالتك">
+
+<button
+class="send-btn"
+onclick="sendMessage()">
++
+</button>
+
+</div>
+
+<script>
+
+/* القائمة */
+
+function openMenu(){
+
+document
+.getElementById("sidebar")
+.classList
+.add("active");
+
+document
+.getElementById("overlay")
+.classList
+.add("active");
+
 }
 
-.message{
-display:flex;
-align-items:flex-start;
-gap:12px;
+function closeMenu(){
+
+document
+.getElementById("sidebar")
+.classList
+.remove("active");
+
+document
+.getElementById("overlay")
+.classList
+.remove("active");
+
 }
 
-.avatar{
-width:44px;
-height:44px;
-border-radius:50%;
-object-fit:cover;
+/* ربط Supabase */
+
+const supabaseUrl =
+"https://lwnheytfhwgryxikjjwu.supabase.co";
+
+const supabaseKey =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3bmhleXRmaHdncnl4aWtqand1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MDcxNjEsImV4cCI6MjA5MzI4MzE2MX0.qTJGYWouA9w9RZU8WFkE7ZbK-J3O1Snvwi9CbEMNxtQ";
+
+const supabase =
+window.supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
+/* ارسال الرسائل */
+
+async function sendMessage(){
+
+const input =
+document.getElementById("messageInput");
+
+const text =
+input.value.trim();
+
+if(text === ""){
+return;
 }
 
-.msg-content{
-background:#111;
-padding:14px;
-border-radius:18px;
-max-width:80%;
+/* اضافة الرسالة بالشاشة */
+
+const messages =
+document.getElementById("messages");
+
+messages.innerHTML += `
+
+<div class="message">
+
+<div class="msg-name">
+أنت
+</div>
+
+<div class="msg-text">
+${text}
+</div>
+
+</div>
+
+`;
+
+messages.scrollTop =
+messages.scrollHeight;
+
+/* تنظيف */
+
+input.value = "";
+
+/* حفظ Supabase */
+
+await supabase
+.from("messages")
+.insert([
+{
+name:"أنت",
+message:text
+}
+]);
+
 }
 
-.msg-name{
-font-size:14px;
-margin-bottom:6px;
-color:#aaa;
+/* تحميل الرسائل */
+
+async function loadMessages(){
+
+const { data } =
+await supabase
+.from("messages")
+.select("*")
+.order(
+"created_at",
+{
+ascending:true
+}
+);
+
+const box =
+document.getElementById("messages");
+
+box.innerHTML = "";
+
+data.forEach(msg=>{
+
+box.innerHTML += `
+
+<div class="message">
+
+<div class="msg-name">
+${msg.name}
+</div>
+
+<div class="msg-text">
+${msg.message}
+</div>
+
+</div>
+
+`;
+
+});
+
+box.scrollTop =
+box.scrollHeight;
+
 }
 
-.msg-text{
-font-size:16px;
-line-height:1.5;
-}
+/* تشغيل */
+
+loadMessages();
+
+setInterval(
+loadMessages,
+2000
+);
+
+</script>
+
+</body>
+</html>
