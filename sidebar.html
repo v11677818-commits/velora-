@@ -1,15 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Velora Menu</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:#000;
+height:100vh;
+overflow:hidden;
+color:#fff;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+position:fixed;
+top:20px;
+right:20px;
+width:56px;
+height:56px;
+border-radius:50%;
+background:#141414;
+border:1px solid #2a2a2a;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+cursor:pointer;
+z-index:1000;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+right:-100%;
+width:88%;
+max-width:360px;
+height:100%;
+background:#000;
+border-left:1px solid #1f1f1f;
+padding:28px 24px;
+transition:.35s;
+z-index:999;
+overflow-y:auto;
+}
+
+.sidebar.active{
+right:0;
+}
+
+/* SEARCH */
+
+.search-box{
+width:100%;
+height:56px;
+border-radius:999px;
+border:1px solid #222;
+background:#141414;
+outline:none;
+padding:0 20px;
+color:#fff;
+font-size:15px;
+margin-bottom:34px;
+}
+
+/* LINKS */
+
+.menu-links{
+display:flex;
+flex-direction:column;
+gap:26px;
+}
+
+.menu-links a{
+text-decoration:none;
+color:#fff;
+font-size:18px;
+font-weight:500;
+}
+
+/* OVERLAY */
+
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(2px);
+opacity:0;
+pointer-events:none;
+transition:.3s;
+z-index:500;
+}
+
+.overlay.active{
+opacity:1;
+pointer-events:auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BUTTON -->
+
+<div class="menu-btn" onclick="openMenu()">
+☰
+</div>
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- SIDEBAR -->
+
 <div class="sidebar" id="sidebar">
 
-<a href="chat.html">Bot</a>
-<a href="group.html">Group</a>
-<a href="game.html">Velora Game</a>
-<a href="outfits.html">Outfits</a>
-<a href="challenges.html">Challenges</a>
-<a href="store.html">Store</a>
-<a href="subscription.html">Subscription</a>
-<a href="profile.html">Profile</a>
-<a href="create-group.html">Create Group</a>
+<input
+type="text"
+class="search-box"
+placeholder="Search">
+
+<div class="menu-links">
+
+<a href="chat.html">
+Bot
+</a>
+
+<a href="group.html">
+Group
+</a>
+
+<a href="private.html">
+Private Groups
+</a>
+
+<a href="game.html">
+Velora Game
+</a>
+
+<a href="styles.html">
+Styles
+</a>
+
+<a href="challenges.html">
+Challenges
+</a>
+
+<a href="store.html">
+Store
+</a>
+
+<a href="subscription.html">
+Subscription
+</a>
+
+<a href="profile.html">
+Profile
+</a>
 
 </div>
 
-<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+</div>
+
+<script>
+
+function openMenu(){
+
+document
+.getElementById("sidebar")
+.classList
+.add("active");
+
+document
+.getElementById("overlay")
+.classList
+.add("active");
+
+}
+
+function closeMenu(){
+
+document
+.getElementById("sidebar")
+.classList
+.remove("active");
+
+document
+.getElementById("overlay")
+.classList
+.remove("active");
+
+}
+
+</script>
+
+</body>
+
+</html>
