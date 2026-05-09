@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
@@ -269,21 +271,37 @@ placeholder="Search">
 
 <div class="menu-links">
 
-<a href="group.html">Group</a>
+<a href="group.html">
+Group
+</a>
 
-<a href="chat.html">Bot</a>
+<a href="chat.html">
+Bot
+</a>
 
-<a href="game.html">Velora Game</a>
+<a href="game.html">
+Velora Game
+</a>
 
-<a href="styles.html">Styles</a>
+<a href="styles.html">
+Styles
+</a>
 
-<a href="challenges.html">Weekly Challenges</a>
+<a href="challenges.html">
+Weekly Challenges
+</a>
 
-<a href="store.html">Velora Store</a>
+<a href="store.html">
+Velora Store
+</a>
 
-<a href="subscription.html">Subscription</a>
+<a href="subscription.html">
+Subscription
+</a>
 
-<a href="profile.html">Profile</a>
+<a href="profile.html">
+Profile
+</a>
 
 </div>
 
@@ -324,38 +342,38 @@ onclick="sendMessage()">
 function openMenu(){
 
 document
-.getElementById('sidebar')
+.getElementById("sidebar")
 .classList
-.add('active');
+.add("active");
 
 document
-.getElementById('overlay')
+.getElementById("overlay")
 .classList
-.add('active');
+.add("active");
 
 }
 
 function closeMenu(){
 
 document
-.getElementById('sidebar')
+.getElementById("sidebar")
 .classList
-.remove('active');
+.remove("active");
 
 document
-.getElementById('overlay')
+.getElementById("overlay")
 .classList
-.remove('active');
+.remove("active");
 
 }
 
 /* SUPABASE */
 
 const SUPABASE_URL =
-'https://lwnheytfhwgryxikjjwu.supabase.co';
+"https://lwnheytfhwgryxikjjwu.supabase.co";
 
 const SUPABASE_KEY =
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3bmhleXRmaHdncnl4aWtqand1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MDcxNjEsImV4cCI6MjA5MzI4MzE2MX0.qTJGYWouA9w9RZU8WFkE7ZbK-J3O1Snvwi9CbEMNxtQ';
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3bmhleXRmaHdncnl4aWtqand1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MDcxNjEsImV4cCI6MjA5MzI4MzE2MX0.qTJGYWouA9w9RZU8WFkE7ZbK-J3O1Snvwi9CbEMNxtQ";
 
 const supabase =
 window.supabase.createClient(
@@ -367,22 +385,24 @@ SUPABASE_KEY
 
 async function sendMessage(){
 
+try{
+
 const input =
-document.getElementById('messageInput');
+document.getElementById("messageInput");
 
 const text =
 input.value.trim();
 
-if(text === '') return;
+if(text === "") return;
 
 document
-.getElementById('welcomeText')
-.style.display = 'none';
+.getElementById("welcomeText")
+.style.display = "none";
 
 const messages =
-document.getElementById('messages');
+document.getElementById("messages");
 
-/* USER MESSAGE */
+/* USER */
 
 messages.innerHTML += `
 
@@ -403,7 +423,7 @@ ${text}
 messages.scrollTop =
 messages.scrollHeight;
 
-input.value = '';
+input.value = "";
 
 /* BOT */
 
@@ -433,13 +453,19 @@ messages.scrollHeight;
 /* SAVE */
 
 await supabase
-.from('messages')
+.from("messages")
 .insert([
 {
-name:'You',
+name:"You",
 message:text
 }
 ]);
+
+}catch(error){
+
+console.log(error);
+
+}
 
 }
 
