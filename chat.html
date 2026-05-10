@@ -1,18 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Velora</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -20,114 +13,82 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Inter',sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
 background:#000;
-color:#fff;
+overflow:hidden;
+}
+
+.app{
+width:100%;
 height:100vh;
+background:#000;
+position:relative;
 overflow:hidden;
 }
 
 /* TOP */
 
-.top-bar{
-position:fixed;
-top:20px;
-right:20px;
+.topbar{
+position:absolute;
+top:22px;
+right:22px;
 display:flex;
 align-items:center;
-gap:12px;
+gap:14px;
 z-index:1000;
 }
 
 .subscribe-btn{
-height:54px;
+height:52px;
 padding:0 30px;
+border:none;
 border-radius:999px;
-border:1px solid #2a2a2a;
-background:#141414;
+background:#1a1a1a;
 color:#fff;
-font-size:15px;
+font-size:16px;
 cursor:pointer;
 }
 
 .menu-btn{
-width:54px;
-height:54px;
+width:52px;
+height:52px;
+border:none;
 border-radius:50%;
-border:1px solid #2a2a2a;
-background:#141414;
-color:#fff;
-font-size:26px;
+background:#1a1a1a;
+display:flex;
+align-items:center;
+justify-content:center;
 cursor:pointer;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-position:fixed;
-top:0;
-right:-100%;
-width:88%;
-max-width:360px;
-height:100%;
-background:#000;
-border-left:1px solid #1c1c1c;
-padding:26px;
-transition:.35s;
-z-index:999;
-overflow-y:auto;
+.menu-icon{
+width:20px;
+height:2px;
+background:#fff;
+position:relative;
 }
 
-.sidebar.active{
-right:0;
+.menu-icon::before{
+content:'';
+position:absolute;
+top:-6px;
+left:0;
+width:20px;
+height:2px;
+background:#fff;
 }
 
-.search-box{
-width:100%;
-height:56px;
-border:none;
-outline:none;
-border-radius:999px;
-background:#141414;
-color:#fff;
-padding:0 20px;
-font-size:15px;
-margin-bottom:34px;
-border:1px solid #222;
-}
-
-.menu-links{
-display:flex;
-flex-direction:column;
-gap:26px;
-}
-
-.menu-links a{
-text-decoration:none;
-color:#fff;
-font-size:18px;
-font-weight:500;
-}
-
-/* OVERLAY */
-
-.overlay{
-position:fixed;
-inset:0;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(2px);
-opacity:0;
-pointer-events:none;
-transition:.3s;
-z-index:500;
-}
-
-.overlay.active{
-opacity:1;
-pointer-events:auto;
+.menu-icon::after{
+content:'';
+position:absolute;
+top:6px;
+left:0;
+width:20px;
+height:2px;
+background:#fff;
 }
 
 /* CENTER */
@@ -137,335 +98,324 @@ position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-font-size:42px;
+color:#fff;
+font-size:44px;
 font-weight:600;
-text-align:center;
 }
 
-/* MESSAGES */
+/* INPUT */
 
-.messages{
+.chat-box{
 position:absolute;
-top:100px;
-left:0;
-width:100%;
-height:calc(100vh - 190px);
-overflow-y:auto;
-padding:24px;
-display:flex;
-flex-direction:column;
-gap:18px;
-}
-
-.message{
-max-width:78%;
-padding:16px;
-border-radius:22px;
-background:#111;
-border:1px solid #1f1f1f;
-}
-
-.user{
-align-self:flex-end;
-background:#1a1a1a;
-}
-
-.bot{
-align-self:flex-start;
-}
-
-.msg-name{
-font-size:13px;
-color:#8d8d8d;
-margin-bottom:6px;
-}
-
-.msg-text{
-font-size:16px;
-line-height:1.6;
-word-break:break-word;
-}
-
-/* BOTTOM */
-
-.bottom-bar{
-position:fixed;
-bottom:18px;
+bottom:22px;
 left:50%;
 transform:translateX(-50%);
 width:92%;
-max-width:920px;
-height:70px;
-background:#141414;
-border:1px solid #242424;
-border-radius:999px;
+max-width:1000px;
+height:72px;
+background:#161616;
+border:1px solid #262626;
+border-radius:40px;
 display:flex;
 align-items:center;
-padding:0 12px;
-z-index:1000;
+padding:0 14px;
+gap:12px;
 }
 
-.message-input{
+.voice-btn{
+width:46px;
+height:46px;
+border-radius:50%;
+background:#fff;
+border:none;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+.voice-bars{
+display:flex;
+align-items:end;
+gap:2px;
+height:16px;
+}
+
+.voice-bars span{
+width:3px;
+background:#000;
+border-radius:999px;
+}
+
+.voice-bars span:nth-child(1){
+height:7px;
+}
+
+.voice-bars span:nth-child(2){
+height:13px;
+}
+
+.voice-bars span:nth-child(3){
+height:10px;
+}
+
+.voice-bars span:nth-child(4){
+height:16px;
+}
+
+.chat-input{
 flex:1;
 height:100%;
 background:none;
 border:none;
 outline:none;
 color:#fff;
-font-size:16px;
-padding:0 18px;
+font-size:17px;
+padding:0 10px;
 }
 
-.send-btn{
-width:52px;
-height:52px;
+.chat-input::placeholder{
+color:#8a8a8a;
+}
+
+.plus-btn{
+width:50px;
+height:50px;
 border-radius:50%;
 border:none;
 background:#222;
 color:#fff;
-font-size:24px;
+font-size:28px;
 cursor:pointer;
 }
 
-::-webkit-scrollbar{
-width:6px;
+/* SIDEBAR */
+
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(255,255,255,.10);
+opacity:0;
+pointer-events:none;
+transition:.3s;
+z-index:1500;
 }
 
-::-webkit-scrollbar-thumb{
-background:#222;
-border-radius:999px;
+.overlay.active{
+opacity:1;
+pointer-events:auto;
+}
+
+.sidebar{
+position:fixed;
+top:0;
+right:-420px;
+width:420px;
+max-width:100%;
+height:100vh;
+background:#050505;
+padding:30px;
+transition:.35s;
+z-index:2000;
+overflow:auto;
+}
+
+.sidebar.active{
+right:0;
+}
+
+.search-box{
+width:100%;
+height:58px;
+background:#171717;
+border:1px solid #2a2a2a;
+border-radius:40px;
+display:flex;
+align-items:center;
+padding:0 22px;
+margin-top:40px;
+}
+
+.search-box input{
+width:100%;
+background:none;
+border:none;
+outline:none;
+color:#fff;
+font-size:16px;
+}
+
+.search-box input::placeholder{
+color:#888;
+}
+
+.sidebar-links{
+margin-top:50px;
+display:flex;
+flex-direction:column;
+gap:34px;
+}
+
+.sidebar-links button{
+background:none;
+border:none;
+color:#fff;
+font-size:34px;
+text-align:right;
+cursor:pointer;
+}
+
+.profile{
+position:absolute;
+bottom:30px;
+right:30px;
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.profile-circle{
+width:45px;
+height:45px;
+border-radius:50%;
+background:#8f44fd;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-size:15px;
+}
+
+.profile span{
+color:#fff;
+font-size:18px;
+}
+
+@media(max-width:700px){
+
+.center-text{
+font-size:30px;
+}
+
+.sidebar{
+width:100%;
+}
+
+.sidebar-links button{
+font-size:26px;
+}
+
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- TOP -->
+<div class="app">
 
-<div class="top-bar">
+<div class="topbar">
 
 <button class="subscribe-btn">
 Subscription
 </button>
 
-<button class="menu-btn" onclick="openMenu()">
-☰
+<button class="menu-btn" id="menuButton">
+<div class="menu-icon"></div>
 </button>
 
 </div>
 
-<!-- OVERLAY -->
-
-<div class="overlay" id="overlay" onclick="closeMenu()"></div>
-
-<!-- SIDEBAR -->
-
-<div class="sidebar" id="sidebar">
-
-<input
-type="text"
-class="search-box"
-placeholder="Search">
-
-<div class="menu-links">
-
-<a href="group.html">
-Group
-</a>
-
-<a href="chat.html">
-Bot
-</a>
-
-<a href="game.html">
-Velora Game
-</a>
-
-<a href="styles.html">
-Styles
-</a>
-
-<a href="challenges.html">
-Weekly Challenges
-</a>
-
-<a href="store.html">
-Velora Store
-</a>
-
-<a href="subscription.html">
-Subscription
-</a>
-
-<a href="profile.html">
-Profile
-</a>
-
-</div>
-
-</div>
-
-<!-- CENTER -->
-
-<div class="center-text" id="welcomeText">
+<div class="center-text">
 How can I help you?
 </div>
 
-<!-- MESSAGES -->
+<div class="chat-box">
 
-<div class="messages" id="messages"></div>
+<button class="voice-btn">
 
-<!-- BOTTOM -->
+<div class="voice-bars">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
 
-<div class="bottom-bar">
+</button>
 
 <input
-id="messageInput"
-class="message-input"
 type="text"
-placeholder="Message Velora">
+class="chat-input"
+placeholder="Ask Velora"
+/>
 
-<button
-class="send-btn"
-onclick="sendMessage()">
+<button class="plus-btn">
 +
 </button>
 
 </div>
 
+<div class="overlay" id="overlay"></div>
+
+<div class="sidebar" id="sidebar">
+
+<div class="search-box">
+<input type="text" placeholder="Search">
+</div>
+
+<div class="sidebar-links">
+
+<button>Group</button>
+
+<button>Bot</button>
+
+<button>Velora Game</button>
+
+<button>Outfits</button>
+
+<button>Weekly Challenges</button>
+
+<button>Velora Store</button>
+
+<button>Subscription</button>
+
+<button>Profile</button>
+
+<button>Create Group</button>
+
+</div>
+
+<div class="profile">
+
+<div class="profile-circle">
+VW
+</div>
+
+<span>Profile</span>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
 
-/* MENU */
+const menuButton = document.getElementById('menuButton');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
 
-function openMenu(){
+menuButton.onclick = () => {
 
-document
-.getElementById("sidebar")
-.classList
-.add("active");
-
-document
-.getElementById("overlay")
-.classList
-.add("active");
+sidebar.classList.add('active');
+overlay.classList.add('active');
 
 }
 
-function closeMenu(){
+overlay.onclick = () => {
 
-document
-.getElementById("sidebar")
-.classList
-.remove("active");
-
-document
-.getElementById("overlay")
-.classList
-.remove("active");
-
-}
-
-/* SUPABASE */
-
-const SUPABASE_URL =
-"https://lwnheytfhwgryxikjjwu.supabase.co";
-
-const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3bmhleXRmaHdncnl4aWtqand1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MDcxNjEsImV4cCI6MjA5MzI4MzE2MX0.qTJGYWouA9w9RZU8WFkE7ZbK-J3O1Snvwi9CbEMNxtQ";
-
-const supabase =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-/* SEND */
-
-async function sendMessage(){
-
-try{
-
-const input =
-document.getElementById("messageInput");
-
-const text =
-input.value.trim();
-
-if(text === "") return;
-
-document
-.getElementById("welcomeText")
-.style.display = "none";
-
-const messages =
-document.getElementById("messages");
-
-/* USER */
-
-messages.innerHTML += `
-
-<div class="message user">
-
-<div class="msg-name">
-You
-</div>
-
-<div class="msg-text">
-${text}
-</div>
-
-</div>
-
-`;
-
-messages.scrollTop =
-messages.scrollHeight;
-
-input.value = "";
-
-/* BOT */
-
-setTimeout(()=>{
-
-messages.innerHTML += `
-
-<div class="message bot">
-
-<div class="msg-name">
-Velora AI
-</div>
-
-<div class="msg-text">
-Your message has been received.
-</div>
-
-</div>
-
-`;
-
-messages.scrollTop =
-messages.scrollHeight;
-
-},700);
-
-/* SAVE */
-
-await supabase
-.from("messages")
-.insert([
-{
-name:"You",
-message:text
-}
-]);
-
-}catch(error){
-
-console.log(error);
-
-}
+sidebar.classList.remove('active');
+overlay.classList.remove('active');
 
 }
 
