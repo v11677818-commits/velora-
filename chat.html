@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<title>Velora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Velora Bot</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -23,7 +21,7 @@ background:#000;
 overflow:hidden;
 }
 
-/* MAIN */
+/* APP */
 
 .app{
 width:100%;
@@ -35,25 +33,24 @@ overflow:hidden;
 
 /* TOP */
 
-.top-bar{
+.topbar{
 position:absolute;
-top:20px;
-right:20px;
+top:22px;
+right:22px;
 display:flex;
 align-items:center;
 gap:14px;
 z-index:1000;
 }
 
-.subscription-btn{
+.subscribe-btn{
 height:52px;
-padding:0 28px;
+padding:0 30px;
 border:none;
 border-radius:999px;
-background:#161616;
+background:#171717;
 color:#fff;
 font-size:15px;
-font-weight:400;
 cursor:pointer;
 }
 
@@ -62,21 +59,21 @@ width:52px;
 height:52px;
 border:none;
 border-radius:50%;
-background:#161616;
+background:#171717;
 display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
 }
 
-.menu-lines{
+.menu-icon{
 width:18px;
 height:2px;
 background:#fff;
 position:relative;
 }
 
-.menu-lines::before{
+.menu-icon::before{
 content:'';
 position:absolute;
 top:-6px;
@@ -86,7 +83,7 @@ height:2px;
 background:#fff;
 }
 
-.menu-lines::after{
+.menu-icon::after{
 content:'';
 position:absolute;
 top:6px;
@@ -109,30 +106,29 @@ font-weight:600;
 white-space:nowrap;
 }
 
-/* CHAT BAR */
+/* CHAT */
 
-.chat-bar{
+.chat-container{
 position:absolute;
-bottom:22px;
+bottom:20px;
 left:50%;
 transform:translateX(-50%);
 width:92%;
-max-width:1020px;
-height:72px;
-background:#171717;
-border:1px solid #262626;
+max-width:1000px;
+background:#151515;
+border:1px solid #242424;
 border-radius:40px;
+padding:12px;
 display:flex;
 align-items:center;
-padding:0 14px;
 gap:12px;
 }
 
 /* VOICE */
 
 .voice-btn{
-width:46px;
-height:46px;
+width:48px;
+height:48px;
 border:none;
 border-radius:50%;
 background:#fff;
@@ -143,62 +139,76 @@ cursor:pointer;
 flex-shrink:0;
 }
 
-.voice-wave{
+.voice-lines{
 display:flex;
 align-items:flex-end;
 gap:2px;
 height:16px;
 }
 
-.voice-wave span{
+.voice-lines span{
 width:3px;
 background:#000;
 border-radius:999px;
 }
 
-.voice-wave span:nth-child(1){
-height:6px;
+.voice-lines span:nth-child(1){
+height:7px;
 }
 
-.voice-wave span:nth-child(2){
-height:11px;
+.voice-lines span:nth-child(2){
+height:12px;
 }
 
-.voice-wave span:nth-child(3){
-height:16px;
-}
-
-.voice-wave span:nth-child(4){
+.voice-lines span:nth-child(3){
 height:9px;
+}
+
+.voice-lines span:nth-child(4){
+height:15px;
+}
+
+/* IMAGE */
+
+.image-btn{
+width:48px;
+height:48px;
+border:none;
+border-radius:50%;
+background:#222;
+color:#fff;
+font-size:20px;
+cursor:pointer;
+flex-shrink:0;
 }
 
 /* INPUT */
 
 .chat-input{
 flex:1;
-height:100%;
 background:none;
 border:none;
 outline:none;
 color:#fff;
 font-size:16px;
-padding:0 8px;
+padding:0 10px;
 }
 
 .chat-input::placeholder{
-color:#9a9a9a;
+color:#8a8a8a;
 }
 
-/* PLUS */
+/* SEND */
 
-.plus-btn{
-width:50px;
-height:50px;
+.send-btn{
+width:48px;
+height:48px;
 border:none;
 border-radius:50%;
-background:#222;
-color:#fff;
-font-size:30px;
+background:#fff;
+color:#000;
+font-size:18px;
+font-weight:600;
 cursor:pointer;
 flex-shrink:0;
 }
@@ -212,7 +222,7 @@ background:rgba(255,255,255,.08);
 opacity:0;
 pointer-events:none;
 transition:.3s;
-z-index:100;
+z-index:1500;
 }
 
 .overlay.active{
@@ -228,9 +238,9 @@ width:420px;
 max-width:100%;
 height:100vh;
 background:#050505;
-padding:26px;
+padding:30px;
 transition:.35s;
-z-index:200;
+z-index:2000;
 overflow:auto;
 }
 
@@ -238,18 +248,16 @@ overflow:auto;
 right:0;
 }
 
-/* SEARCH */
-
 .search-box{
 width:100%;
 height:58px;
 background:#171717;
-border:1px solid #262626;
+border:1px solid #2a2a2a;
 border-radius:40px;
 display:flex;
 align-items:center;
-padding:0 20px;
-margin-top:60px;
+padding:0 22px;
+margin-top:40px;
 }
 
 .search-box input{
@@ -265,20 +273,17 @@ font-size:16px;
 color:#888;
 }
 
-/* MENU LINKS */
-
 .sidebar-links{
+margin-top:50px;
 display:flex;
 flex-direction:column;
 gap:34px;
-margin-top:50px;
 }
 
 .sidebar-links a{
-text-decoration:none;
 color:#fff;
-font-size:34px;
-font-weight:400;
+font-size:33px;
+text-decoration:none;
 text-align:right;
 }
 
@@ -294,8 +299,8 @@ gap:12px;
 }
 
 .profile-circle{
-width:46px;
-height:46px;
+width:45px;
+height:45px;
 border-radius:50%;
 background:#9147ff;
 display:flex;
@@ -305,9 +310,41 @@ color:#fff;
 font-size:14px;
 }
 
-.profile-text{
+.profile span{
 color:#fff;
 font-size:18px;
+}
+
+/* MESSAGES */
+
+.messages{
+position:absolute;
+top:120px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:1000px;
+height:65vh;
+overflow:auto;
+padding-bottom:30px;
+}
+
+.message{
+background:#111;
+border:1px solid #222;
+padding:16px 20px;
+border-radius:22px;
+color:#fff;
+margin-bottom:14px;
+width:fit-content;
+max-width:80%;
+font-size:15px;
+line-height:1.5;
+}
+
+.user{
+margin-left:auto;
+background:#1b1b1b;
 }
 
 /* MOBILE */
@@ -315,7 +352,7 @@ font-size:18px;
 @media(max-width:700px){
 
 .center-title{
-font-size:30px;
+font-size:28px;
 }
 
 .sidebar{
@@ -323,11 +360,11 @@ width:100%;
 }
 
 .sidebar-links a{
-font-size:26px;
+font-size:25px;
 }
 
-.chat-bar{
-height:68px;
+.chat-container{
+padding:10px;
 }
 
 }
@@ -341,68 +378,72 @@ height:68px;
 
 <!-- TOP -->
 
-<div class="top-bar">
+<div class="topbar">
 
 <a href="subscription.html">
-<button class="subscription-btn">
+<button class="subscribe-btn">
 Subscription
 </button>
 </a>
 
-<button class="menu-btn" id="openMenu">
-<div class="menu-lines"></div>
+<button class="menu-btn" id="menuButton">
+<div class="menu-icon"></div>
 </button>
 
 </div>
 
+<!-- MESSAGES -->
+
+<div class="messages" id="messages"></div>
+
 <!-- CENTER -->
 
-<div class="center-title">
+<div class="center-title" id="centerTitle">
 How can I help you?
 </div>
 
 <!-- CHAT -->
 
-<div class="chat-bar">
+<div class="chat-container">
 
 <button class="voice-btn">
 
-<div class="voice-wave">
+<div class="voice-lines">
 <span></span>
 <span></span>
 <span></span>
 <span></span>
 </div>
 
+</button>
+
+<input type="file" id="imageInput" hidden>
+
+<button class="image-btn" id="imageButton">
++
 </button>
 
 <input
 type="text"
 class="chat-input"
+id="chatInput"
 placeholder="Ask Velora"
 />
 
-<button class="plus-btn">
-+
+<button class="send-btn" id="sendButton">
+↑
 </button>
 
 </div>
 
-<!-- OVERLAY -->
+<!-- SIDEBAR -->
 
 <div class="overlay" id="overlay"></div>
-
-<!-- SIDEBAR -->
 
 <div class="sidebar" id="sidebar">
 
 <div class="search-box">
-
-<input
-type="text"
-placeholder="Search"
-/>
-
+<input type="text" placeholder="Search">
 </div>
 
 <div class="sidebar-links">
@@ -433,9 +474,7 @@ placeholder="Search"
 VW
 </div>
 
-<div class="profile-text">
-Profile
-</div>
+<span>Profile</span>
 
 </div>
 
@@ -445,23 +484,150 @@ Profile
 
 <script>
 
-const openMenu = document.getElementById('openMenu');
+/* SIDEBAR */
+
+const menuButton = document.getElementById('menuButton');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
 
-openMenu.onclick = () => {
+menuButton.onclick = () => {
 
 sidebar.classList.add('active');
 overlay.classList.add('active');
 
-};
+}
 
 overlay.onclick = () => {
 
 sidebar.classList.remove('active');
 overlay.classList.remove('active');
 
-};
+}
+
+/* CHAT */
+
+const sendButton = document.getElementById('sendButton');
+const chatInput = document.getElementById('chatInput');
+const messages = document.getElementById('messages');
+const centerTitle = document.getElementById('centerTitle');
+
+let userType = "registered";
+
+/*
+
+guest = 6 messages no images
+registered = 21 messages + images
+subscriber = unlimited
+
+*/
+
+let messageLimit = 21;
+let messageCount = 0;
+
+function addMessage(text,type){
+
+const div = document.createElement('div');
+
+div.classList.add('message');
+
+if(type === 'user'){
+div.classList.add('user');
+}
+
+div.innerText = text;
+
+messages.appendChild(div);
+
+messages.scrollTop = messages.scrollHeight;
+
+}
+
+function botReply(){
+
+setTimeout(()=>{
+
+addMessage("Velora AI response...",'bot');
+
+},700);
+
+}
+
+function sendMessage(){
+
+const text = chatInput.value.trim();
+
+if(text === '') return;
+
+if(userType === 'guest' && messageCount >= 6){
+
+alert('Guest limit reached');
+
+return;
+
+}
+
+if(userType === 'registered' && messageCount >= 21){
+
+alert('Registered limit reached');
+
+return;
+
+}
+
+centerTitle.style.display = 'none';
+
+addMessage(text,'user');
+
+chatInput.value = '';
+
+messageCount++;
+
+botReply();
+
+}
+
+sendButton.onclick = sendMessage;
+
+chatInput.addEventListener('keydown',(e)=>{
+
+if(e.key === 'Enter'){
+sendMessage();
+}
+
+});
+
+/* IMAGE */
+
+const imageButton = document.getElementById('imageButton');
+const imageInput = document.getElementById('imageInput');
+
+imageButton.onclick = ()=>{
+
+if(userType === 'guest'){
+
+alert('Guests cannot upload images');
+
+return;
+
+}
+
+imageInput.click();
+
+}
+
+imageInput.addEventListener('change',()=>{
+
+if(imageInput.files.length > 0){
+
+centerTitle.style.display = 'none';
+
+addMessage("Image uploaded",'user');
+
+botReply();
+
+}
+
+});
 
 </script>
 
