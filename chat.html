@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Velora</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -21,6 +23,8 @@ background:#000;
 overflow:hidden;
 }
 
+/* MAIN */
+
 .app{
 width:100%;
 height:100vh;
@@ -31,24 +35,25 @@ overflow:hidden;
 
 /* TOP */
 
-.topbar{
+.top-bar{
 position:absolute;
-top:22px;
-right:22px;
+top:20px;
+right:20px;
 display:flex;
 align-items:center;
 gap:14px;
 z-index:1000;
 }
 
-.subscribe-btn{
+.subscription-btn{
 height:52px;
-padding:0 30px;
+padding:0 28px;
 border:none;
 border-radius:999px;
-background:#1a1a1a;
+background:#161616;
 color:#fff;
-font-size:16px;
+font-size:15px;
+font-weight:400;
 cursor:pointer;
 }
 
@@ -57,63 +62,64 @@ width:52px;
 height:52px;
 border:none;
 border-radius:50%;
-background:#1a1a1a;
+background:#161616;
 display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
 }
 
-.menu-icon{
-width:20px;
+.menu-lines{
+width:18px;
 height:2px;
 background:#fff;
 position:relative;
 }
 
-.menu-icon::before{
+.menu-lines::before{
 content:'';
 position:absolute;
 top:-6px;
 left:0;
-width:20px;
+width:18px;
 height:2px;
 background:#fff;
 }
 
-.menu-icon::after{
+.menu-lines::after{
 content:'';
 position:absolute;
 top:6px;
 left:0;
-width:20px;
+width:18px;
 height:2px;
 background:#fff;
 }
 
 /* CENTER */
 
-.center-text{
+.center-title{
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 color:#fff;
-font-size:44px;
+font-size:42px;
 font-weight:600;
+white-space:nowrap;
 }
 
-/* INPUT */
+/* CHAT BAR */
 
-.chat-box{
+.chat-bar{
 position:absolute;
 bottom:22px;
 left:50%;
 transform:translateX(-50%);
 width:92%;
-max-width:1000px;
+max-width:1020px;
 height:72px;
-background:#161616;
+background:#171717;
 border:1px solid #262626;
 border-radius:40px;
 display:flex;
@@ -122,46 +128,51 @@ padding:0 14px;
 gap:12px;
 }
 
+/* VOICE */
+
 .voice-btn{
 width:46px;
 height:46px;
+border:none;
 border-radius:50%;
 background:#fff;
-border:none;
 display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
+flex-shrink:0;
 }
 
-.voice-bars{
+.voice-wave{
 display:flex;
-align-items:end;
+align-items:flex-end;
 gap:2px;
 height:16px;
 }
 
-.voice-bars span{
+.voice-wave span{
 width:3px;
 background:#000;
 border-radius:999px;
 }
 
-.voice-bars span:nth-child(1){
-height:7px;
+.voice-wave span:nth-child(1){
+height:6px;
 }
 
-.voice-bars span:nth-child(2){
-height:13px;
+.voice-wave span:nth-child(2){
+height:11px;
 }
 
-.voice-bars span:nth-child(3){
-height:10px;
-}
-
-.voice-bars span:nth-child(4){
+.voice-wave span:nth-child(3){
 height:16px;
 }
+
+.voice-wave span:nth-child(4){
+height:9px;
+}
+
+/* INPUT */
 
 .chat-input{
 flex:1;
@@ -170,23 +181,26 @@ background:none;
 border:none;
 outline:none;
 color:#fff;
-font-size:17px;
-padding:0 10px;
+font-size:16px;
+padding:0 8px;
 }
 
 .chat-input::placeholder{
-color:#8a8a8a;
+color:#9a9a9a;
 }
+
+/* PLUS */
 
 .plus-btn{
 width:50px;
 height:50px;
-border-radius:50%;
 border:none;
+border-radius:50%;
 background:#222;
 color:#fff;
-font-size:28px;
+font-size:30px;
 cursor:pointer;
+flex-shrink:0;
 }
 
 /* SIDEBAR */
@@ -194,11 +208,11 @@ cursor:pointer;
 .overlay{
 position:fixed;
 inset:0;
-background:rgba(255,255,255,.10);
+background:rgba(255,255,255,.08);
 opacity:0;
 pointer-events:none;
 transition:.3s;
-z-index:1500;
+z-index:100;
 }
 
 .overlay.active{
@@ -214,9 +228,9 @@ width:420px;
 max-width:100%;
 height:100vh;
 background:#050505;
-padding:30px;
+padding:26px;
 transition:.35s;
-z-index:2000;
+z-index:200;
 overflow:auto;
 }
 
@@ -224,16 +238,18 @@ overflow:auto;
 right:0;
 }
 
+/* SEARCH */
+
 .search-box{
 width:100%;
 height:58px;
 background:#171717;
-border:1px solid #2a2a2a;
+border:1px solid #262626;
 border-radius:40px;
 display:flex;
 align-items:center;
-padding:0 22px;
-margin-top:40px;
+padding:0 20px;
+margin-top:60px;
 }
 
 .search-box input{
@@ -249,21 +265,24 @@ font-size:16px;
 color:#888;
 }
 
+/* MENU LINKS */
+
 .sidebar-links{
-margin-top:50px;
 display:flex;
 flex-direction:column;
 gap:34px;
+margin-top:50px;
 }
 
-.sidebar-links button{
-background:none;
-border:none;
+.sidebar-links a{
+text-decoration:none;
 color:#fff;
 font-size:34px;
+font-weight:400;
 text-align:right;
-cursor:pointer;
 }
+
+/* PROFILE */
 
 .profile{
 position:absolute;
@@ -275,25 +294,27 @@ gap:12px;
 }
 
 .profile-circle{
-width:45px;
-height:45px;
+width:46px;
+height:46px;
 border-radius:50%;
-background:#8f44fd;
+background:#9147ff;
 display:flex;
 align-items:center;
 justify-content:center;
 color:#fff;
-font-size:15px;
+font-size:14px;
 }
 
-.profile span{
+.profile-text{
 color:#fff;
 font-size:18px;
 }
 
+/* MOBILE */
+
 @media(max-width:700px){
 
-.center-text{
+.center-title{
 font-size:30px;
 }
 
@@ -301,8 +322,12 @@ font-size:30px;
 width:100%;
 }
 
-.sidebar-links button{
+.sidebar-links a{
 font-size:26px;
+}
+
+.chat-bar{
+height:68px;
 }
 
 }
@@ -314,27 +339,35 @@ font-size:26px;
 
 <div class="app">
 
-<div class="topbar">
+<!-- TOP -->
 
-<button class="subscribe-btn">
+<div class="top-bar">
+
+<a href="subscription.html">
+<button class="subscription-btn">
 Subscription
 </button>
+</a>
 
-<button class="menu-btn" id="menuButton">
-<div class="menu-icon"></div>
+<button class="menu-btn" id="openMenu">
+<div class="menu-lines"></div>
 </button>
 
 </div>
 
-<div class="center-text">
+<!-- CENTER -->
+
+<div class="center-title">
 How can I help you?
 </div>
 
-<div class="chat-box">
+<!-- CHAT -->
+
+<div class="chat-bar">
 
 <button class="voice-btn">
 
-<div class="voice-bars">
+<div class="voice-wave">
 <span></span>
 <span></span>
 <span></span>
@@ -355,33 +388,42 @@ placeholder="Ask Velora"
 
 </div>
 
+<!-- OVERLAY -->
+
 <div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
 
 <div class="sidebar" id="sidebar">
 
 <div class="search-box">
-<input type="text" placeholder="Search">
+
+<input
+type="text"
+placeholder="Search"
+/>
+
 </div>
 
 <div class="sidebar-links">
 
-<button>Group</button>
+<a href="group.html">Group</a>
 
-<button>Bot</button>
+<a href="chat.html">Bot</a>
 
-<button>Velora Game</button>
+<a href="game.html">Velora Game</a>
 
-<button>Outfits</button>
+<a href="styles.html">Outfits</a>
 
-<button>Weekly Challenges</button>
+<a href="challenges.html">Weekly Challenges</a>
 
-<button>Velora Store</button>
+<a href="store.html">Velora Store</a>
 
-<button>Subscription</button>
+<a href="subscription.html">Subscription</a>
 
-<button>Profile</button>
+<a href="profile.html">Profile</a>
 
-<button>Create Group</button>
+<a href="private.html">Create Group</a>
 
 </div>
 
@@ -391,7 +433,9 @@ placeholder="Ask Velora"
 VW
 </div>
 
-<span>Profile</span>
+<div class="profile-text">
+Profile
+</div>
 
 </div>
 
@@ -401,23 +445,23 @@ VW
 
 <script>
 
-const menuButton = document.getElementById('menuButton');
+const openMenu = document.getElementById('openMenu');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
 
-menuButton.onclick = () => {
+openMenu.onclick = () => {
 
 sidebar.classList.add('active');
 overlay.classList.add('active');
 
-}
+};
 
 overlay.onclick = () => {
 
 sidebar.classList.remove('active');
 overlay.classList.remove('active');
 
-}
+};
 
 </script>
 
