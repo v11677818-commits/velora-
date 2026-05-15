@@ -2,50 +2,79 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Velora - Home</title>
+<title>Velora - Bot</title>
 
 <style>
 body {
   margin: 0;
   background: black;
   color: white;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
+  display: flex;
 }
 
 /* Sidebar */
 .menu {
-  position: fixed;
-  left: 0;
-  top: 0;
   width: 220px;
-  height: 100%;
   background: #111;
+  height: 100vh;
   padding: 20px;
 }
 
-/* Menu links */
 .menu a {
   display: block;
   color: white;
   text-decoration: none;
   margin: 15px 0;
-  font-size: 16px;
-  transition: 0.2s;
 }
 
-.menu a:hover {
-  opacity: 0.7;
+/* Chat */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-/* Content */
-.content {
-  margin-left: 240px;
+.messages {
+  flex: 1;
   padding: 20px;
+  overflow-y: auto;
 }
 
-.topbar {
-  font-size: 20px;
-  margin-bottom: 20px;
+.message {
+  margin: 10px 0;
+}
+
+.user {
+  text-align: right;
+}
+
+.bot {
+  text-align: left;
+}
+
+/* Input */
+.input-box {
+  display: flex;
+  padding: 10px;
+  background: #111;
+}
+
+.input-box input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+}
+
+.input-box button {
+  margin-left: 10px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -66,23 +95,76 @@ body {
   <a href="profile.html">Profile</a>
 </div>
 
-<!-- Main Content -->
-<div class="content">
+<!-- Chat -->
+<div class="chat-container">
 
-  <div class="topbar">Velora</div>
+  <div class="messages" id="messages"></div>
 
-  <h1>Bot</h1>
-  <p>This is your main chat page.</p>
+  <div class="input-box">
+    <input type="text" id="input" placeholder="Type a message...">
+    <button onclick="send()">Send</button>
+  </div>
 
 </div>
 
 <script>
-/* Check if user exists */
-const user = localStorage.getItem("user");
+
+/* Check login */
+const user = JSON.parse(localStorage.getItem("user"));
 
 if (!user) {
   window.location.href = "login.html";
 }
+
+/* Elements */
+const messages = document.getElementById("messages");
+const input = document.getElementById("input");
+
+/* Send message */
+function send() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  addMessage(text, "user");
+  input.value = "";
+
+  setTimeout(() => {
+    botReply(text);
+  }, 500);
+}
+
+/* Add message */
+function addMessage(text, type) {
+  const div = document.createElement("div");
+  div.className = "message " + type;
+  div.innerText = text;
+  messages.appendChild(div);
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+/* Fake bot (نبدله بعدين بـ API) */
+function botReply(text) {
+  let reply = "I understand.";
+
+  if (text.toLowerCase().includes("hi")) {
+    reply = "Hello!";
+  }
+
+  if (text.toLowerCase().includes("outfit")) {
+    reply = "Send me images and I will suggest outfits.";
+  }
+
+  addMessage(reply, "bot");
+}
+
+/* Enter key */
+input.addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    send();
+  }
+});
+
 </script>
 
 </body>
