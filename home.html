@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Velora - Home</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 220px;
+  height: 100%;
+  background: #111;
+  padding: 20px;
+}
+
+/* Menu links */
+.menu a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin: 15px 0;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.menu a:hover {
+  opacity: 0.7;
+}
+
+/* Content */
+.content {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.topbar {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="menu">
+  <a href="home.html">Bot</a>
+  <a href="group.html">Groups</a>
+  <a href="private-groups.html">Private Groups</a>
+  <a href="game.html">Velora Game</a>
+  <a href="outfits.html">Outfits</a>
+  <a href="challenges.html">Challenges</a>
+  <a href="leaderboard.html">Leaderboard</a>
+  <a href="store.html">Store</a>
+  <a href="subscription.html">Subscription</a>
+  <a href="profile.html">Profile</a>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+
+  <div class="topbar">Velora</div>
+
+  <h1>Bot</h1>
+  <p>This is your main chat page.</p>
+
+</div>
+
+<script>
+/* Check if user exists */
+const user = localStorage.getItem("user");
+
+if (!user) {
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
